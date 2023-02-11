@@ -63,167 +63,171 @@ export interface components {
   schemas: {
     "Ching.DTOs.AccountDTO": {
       /** Format: int32 */
-      id?: number;
+      id: number;
       name?: string | null;
     };
     "Ching.DTOs.AccountPartitionDTO": {
       /** Format: int32 */
-      id?: number;
-      archived?: boolean;
-      budgetMonth?: components["schemas"]["Ching.DTOs.BudgetMonthDTO"];
+      id: number;
+      archived: boolean;
+      budgetMonth: components["schemas"]["Ching.DTOs.BudgetMonthDTO"];
     };
     "Ching.DTOs.BudgetMonthDTO": {
       /** Format: int32 */
-      year?: number;
+      year: number;
       /** Format: int32 */
-      month?: number;
+      month: number;
     };
     "Ching.DTOs.BudgetOverviewItemDTO": {
       /** Format: int32 */
-      categoryId?: number;
+      categoryId: number;
       categoryName?: string | null;
       /** Format: double */
-      spent?: number;
+      spent: number;
       /** Format: double */
-      available?: number;
+      available: number;
+      /** Format: int32 */
+      parentCategoryId?: number | null;
     };
     "Ching.DTOs.CreateBudgetAssignmentRequest": {
       /** Format: int32 */
-      budgetCategoryId?: number;
-      budgetMonth?: components["schemas"]["Ching.DTOs.BudgetMonthDTO"];
+      budgetCategoryId: number;
+      budgetMonth: components["schemas"]["Ching.DTOs.BudgetMonthDTO"];
       /** Format: double */
-      amount?: number;
+      amount: number;
       note?: string | null;
     };
     "Ching.DTOs.EditAccountTransactionRequest": {
       /** Format: date */
-      date?: string;
+      date: string;
       note?: string | null;
       recipient?: string | null;
       budgetAssignments?: (components["schemas"]["Ching.DTOs.CreateBudgetAssignmentRequest"])[] | null;
     };
     "Ching.DTOs.PartitionBalanceDTO": {
       /** Format: int32 */
-      partitionId?: number;
+      partitionId: number;
       partitionName?: string | null;
       /** Format: double */
-      balance?: number;
+      balance: number;
     };
     "Ching.DTOs.TransactionDTO": {
       /** Format: date */
-      date?: string;
+      date: string;
       /** Format: double */
-      amount?: number;
+      amount: number;
       note?: string | null;
     };
     "Ching.DTOs.TransactionWithBalanceDTO": {
-      transaction?: components["schemas"]["Ching.DTOs.TransactionDTO"];
+      transaction: components["schemas"]["Ching.DTOs.TransactionDTO"];
       /** Format: double */
-      balance?: number;
+      balance: number;
     };
     "Ching.Features.Account.Create+Command": {
       name?: string | null;
     };
     "Ching.Features.AccountPartition.Create+Command": {
       /** Format: int32 */
-      accountId?: number;
+      accountId: number;
       name?: string | null;
-      budgetMonth?: components["schemas"]["Ching.DTOs.BudgetMonthDTO"];
+      budgetMonth: components["schemas"]["Ching.DTOs.BudgetMonthDTO"];
     };
     "Ching.Features.AccountTransaction.Create+Command": {
       /** Format: int32 */
-      accountPartitionId?: number;
+      accountPartitionId: number;
       /** Format: date */
-      date?: string;
+      date: string;
       /** Format: double */
-      amount?: number;
+      amount: number;
       recipient?: string | null;
       note?: string | null;
     };
     "Ching.Features.AccountTransaction.CreateFromBudgetAssignments+Command": {
       /** Format: int32 */
-      accountPartitionId?: number;
+      accountPartitionId: number;
       /** Format: date */
-      date?: string;
+      date: string;
       recipient?: string | null;
       budgetAssignments?: (components["schemas"]["Ching.Features.AccountTransaction.CreateFromBudgetAssignments+Command+BudgetAssignment"])[] | null;
     };
     "Ching.Features.AccountTransaction.CreateFromBudgetAssignments+Command+BudgetAssignment": {
       /** Format: int32 */
-      budgetCategoryId?: number;
-      budgetMonth?: components["schemas"]["Ching.DTOs.BudgetMonthDTO"];
+      budgetCategoryId: number;
+      budgetMonth: components["schemas"]["Ching.DTOs.BudgetMonthDTO"];
       /** Format: double */
-      amount?: number;
+      amount: number;
       note?: string | null;
     };
     "Ching.Features.BudgetCategory.Create+Command": {
       name?: string | null;
+      /** Format: int32 */
+      parentId?: number | null;
     };
     "Ching.Features.BudgetIncrease.Create+Command": {
       /** Format: int32 */
-      budgetCategoryId?: number;
-      budgetMonth?: components["schemas"]["Ching.DTOs.BudgetMonthDTO"];
-      transfer?: components["schemas"]["Ching.Features.BudgetIncrease.Create+Command+TransferData"];
+      budgetCategoryId: number;
+      budgetMonth: components["schemas"]["Ching.DTOs.BudgetMonthDTO"];
+      transfer: components["schemas"]["Ching.Features.BudgetIncrease.Create+Command+TransferData"];
     };
     "Ching.Features.BudgetIncrease.Create+Command+TransferData": {
       /** Format: date */
-      date?: string;
+      date: string;
       /** Format: double */
-      amount?: number;
+      amount: number;
       /** Format: int32 */
-      sourcePartitionId?: number;
+      sourcePartitionId: number;
       /** Format: int32 */
-      destinationPartitionId?: number;
+      destinationPartitionId: number;
     };
     "Ching.Features.MonthBudget.Create+Command": {
       /** Format: int32 */
-      budgetCategoryId?: number;
+      budgetCategoryId: number;
       /** Format: double */
-      amount?: number;
-      budgetMonth?: components["schemas"]["Ching.DTOs.BudgetMonthDTO"];
+      amount: number;
+      budgetMonth: components["schemas"]["Ching.DTOs.BudgetMonthDTO"];
     };
     "Ching.Features.Settlement.Create+Command": {
       /** Format: date */
-      date?: string;
+      date: string;
       accountTransactionIds?: (number)[] | null;
       /** Format: int32 */
-      sourcePartitionId?: number;
+      sourcePartitionId: number;
     };
     "Ching.Features.Transfer.CreateSavingsPayment+Command": {
       /** Format: date */
-      date?: string;
+      date: string;
       /** Format: double */
-      amount?: number;
+      amount: number;
       /** Format: int32 */
-      sourcePartitionId?: number;
+      sourcePartitionId: number;
       /** Format: int32 */
-      destinationPartitionId?: number;
-      budgetAssignment?: components["schemas"]["Ching.Features.Transfer.CreateSavingsPayment+Command+BudgetAssignmentData"];
+      destinationPartitionId: number;
+      budgetAssignment: components["schemas"]["Ching.Features.Transfer.CreateSavingsPayment+Command+BudgetAssignmentData"];
     };
     "Ching.Features.Transfer.CreateSavingsPayment+Command+BudgetAssignmentData": {
       /** Format: int32 */
-      budgetCategoryId?: number;
-      budgetMonth?: components["schemas"]["Ching.DTOs.BudgetMonthDTO"];
+      budgetCategoryId: number;
+      budgetMonth: components["schemas"]["Ching.DTOs.BudgetMonthDTO"];
       /** Format: double */
-      amount?: number;
+      amount: number;
       note?: string | null;
     };
     "Ching.Features.Transfer.CreateTransfer+Command": {
       /** Format: date */
-      date?: string;
+      date: string;
       /** Format: double */
-      amount?: number;
+      amount: number;
       /** Format: int32 */
-      sourcePartitionId?: number;
+      sourcePartitionId: number;
       /** Format: int32 */
-      destinationPartitionId?: number;
+      destinationPartitionId: number;
     };
     "FluentValidation.Results.ValidationFailure": {
       propertyName?: string | null;
       errorMessage?: string | null;
       attemptedValue?: Record<string, unknown> | null;
       customState?: Record<string, unknown> | null;
-      severity?: components["schemas"]["FluentValidation.Severity"];
+      severity: components["schemas"]["FluentValidation.Severity"];
       errorCode?: string | null;
       formattedMessagePlaceholderValues?: ({
         [key: string]: (Record<string, unknown> | null) | undefined;

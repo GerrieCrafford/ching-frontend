@@ -1,7 +1,21 @@
-<p>overview works!</p>
-
-<ul>
-    <li *ngFor="let item of budgetOverview">
-        {{item.categoryName}} | {{item.spent}} | {{item.available}}
-    </li>
-</ul>
+<p-treeTable [value]="nodes">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>Category</th>
+            <th>Spent</th>
+            <th>Available</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
+        <tr>
+            <td>
+                <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+                <a routerLink="/accounts/?x={rowData.category}">
+                {{rowData.category}}
+                </a>
+            </td>
+            <td>{{rowData.spent}}</td>
+            <td>{{rowData.available}}</td>
+        </tr>
+    </ng-template>
+</p-treeTable>
