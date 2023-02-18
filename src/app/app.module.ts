@@ -7,11 +7,24 @@ import { OverviewComponent } from './overview/overview.component';
 import { AppRoutingModule } from './app-routing.module';
 
 import { TreeTableModule } from 'primeng/treetable';
+import { TableModule } from 'primeng/table';
 import { CurrencyZarPipe } from './currency-zar.pipe';
+import { BudgetAssignmentListComponent } from './budget-assignment-list/budget-assignment-list.component';
 
 @NgModule({
-  declarations: [AppComponent, OverviewComponent, CurrencyZarPipe],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, TreeTableModule],
+  declarations: [
+    AppComponent,
+    OverviewComponent,
+    CurrencyZarPipe,
+    BudgetAssignmentListComponent,
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    TreeTableModule,
+    TableModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

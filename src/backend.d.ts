@@ -1,4 +1,7 @@
 import { operations } from 'src/backend-gen';
 
-export type BudgetOverview =
+export type BudgetOverviewRes =
   operations['GetBudgetOverview']['responses'][200]['content']['application/json'];
+
+export type BudgetAssignmentListRes =
+  operations['GetBudgetAssignmentList']['responses'][200]['content']['application/json'];

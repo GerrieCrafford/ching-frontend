@@ -25,6 +25,9 @@ export interface paths {
   "/account-transaction/{accountTransactionId}": {
     patch: operations["EditAccountTransaction"];
   };
+  "/budget-assignment": {
+    get: operations["GetBudgetAssignmentList"];
+  };
   "/budget-category": {
     post: operations["CreateBudgetCategory"];
   };
@@ -64,7 +67,7 @@ export interface components {
     "Ching.DTOs.AccountDTO": {
       /** Format: int32 */
       id: number;
-      name?: string | null;
+      name: string;
     };
     "Ching.DTOs.AccountPartitionDTO": {
       /** Format: int32 */
@@ -72,6 +75,26 @@ export interface components {
       archived: boolean;
       budgetMonth: components["schemas"]["Ching.DTOs.BudgetMonthDTO"];
     };
+    "Ching.DTOs.BudgetAssignmentDTO": {
+      /** Format: int32 */
+      id: number;
+      /** Format: date */
+      date: string;
+      type: components["schemas"]["Ching.DTOs.BudgetAssignmentType"];
+      /** Format: int32 */
+      budgetCategoryId: number;
+      budgetCategoryName: string;
+      budgetMonth: components["schemas"]["Ching.DTOs.BudgetMonthDTO"];
+      /** Format: double */
+      amount: number;
+      recipient: string;
+      note?: string | null;
+    };
+    /**
+     * Format: int32 
+     * @enum {integer}
+     */
+    "Ching.DTOs.BudgetAssignmentType": 0 | 1;
     "Ching.DTOs.BudgetMonthDTO": {
       /** Format: int32 */
       year: number;
@@ -81,7 +104,7 @@ export interface components {
     "Ching.DTOs.BudgetOverviewItemDTO": {
       /** Format: int32 */
       categoryId: number;
-      categoryName?: string | null;
+      categoryName: string;
       /** Format: double */
       spent: number;
       /** Format: double */
@@ -101,13 +124,18 @@ export interface components {
       /** Format: date */
       date: string;
       note?: string | null;
-      recipient?: string | null;
-      budgetAssignments?: (components["schemas"]["Ching.DTOs.CreateBudgetAssignmentRequest"])[] | null;
+      recipient: string;
+      budgetAssignments: (components["schemas"]["Ching.DTOs.CreateBudgetAssignmentRequest"])[];
+    };
+    "Ching.DTOs.PaginatedDTO`1[Ching.DTOs.BudgetAssignmentDTO]": {
+      items: (components["schemas"]["Ching.DTOs.BudgetAssignmentDTO"])[];
+      /** Format: int32 */
+      totalItems: number;
     };
     "Ching.DTOs.PartitionBalanceDTO": {
       /** Format: int32 */
       partitionId: number;
-      partitionName?: string | null;
+      partitionName: string;
       /** Format: double */
       balance: number;
     };
@@ -124,12 +152,12 @@ export interface components {
       balance: number;
     };
     "Ching.Features.Account.Create+Command": {
-      name?: string | null;
+      name: string;
     };
     "Ching.Features.AccountPartition.Create+Command": {
       /** Format: int32 */
       accountId: number;
-      name?: string | null;
+      name: string;
       budgetMonth: components["schemas"]["Ching.DTOs.BudgetMonthDTO"];
     };
     "Ching.Features.AccountTransaction.Create+Command": {
@@ -139,7 +167,7 @@ export interface components {
       date: string;
       /** Format: double */
       amount: number;
-      recipient?: string | null;
+      recipient: string;
       note?: string | null;
     };
     "Ching.Features.AccountTransaction.CreateFromBudgetAssignments+Command": {
@@ -147,8 +175,8 @@ export interface components {
       accountPartitionId: number;
       /** Format: date */
       date: string;
-      recipient?: string | null;
-      budgetAssignments?: (components["schemas"]["Ching.Features.AccountTransaction.CreateFromBudgetAssignments+Command+BudgetAssignment"])[] | null;
+      recipient: string;
+      budgetAssignments: (components["schemas"]["Ching.Features.AccountTransaction.CreateFromBudgetAssignments+Command+BudgetAssignment"])[];
     };
     "Ching.Features.AccountTransaction.CreateFromBudgetAssignments+Command+BudgetAssignment": {
       /** Format: int32 */
@@ -159,7 +187,7 @@ export interface components {
       note?: string | null;
     };
     "Ching.Features.BudgetCategory.Create+Command": {
-      name?: string | null;
+      name: string;
       /** Format: int32 */
       parentId?: number | null;
     };
@@ -189,15 +217,13 @@ export interface components {
     "Ching.Features.Settlement.Create+Command": {
       /** Format: date */
       date: string;
-      accountTransactionIds?: (number)[] | null;
+      accountTransactionIds: (number)[];
       /** Format: int32 */
       sourcePartitionId: number;
     };
     "Ching.Features.Transfer.CreateSavingsPayment+Command": {
       /** Format: date */
       date: string;
-      /** Format: double */
-      amount: number;
       /** Format: int32 */
       sourcePartitionId: number;
       /** Format: int32 */
@@ -360,6 +386,23 @@ export interface operations {
     responses: {
       /** @description Success */
       200: never;
+    };
+  };
+  GetBudgetAssignmentList: {
+    parameters?: {
+      query?: {
+        budgetCategoryId?: number;
+        offset?: number;
+        limit?: number;
+      };
+    };
+    responses: {
+      /** @description Success */
+      200: {
+        content: {
+          "application/json": components["schemas"]["Ching.DTOs.PaginatedDTO`1[Ching.DTOs.BudgetAssignmentDTO]"];
+        };
+      };
     };
   };
   CreateBudgetCategory: {

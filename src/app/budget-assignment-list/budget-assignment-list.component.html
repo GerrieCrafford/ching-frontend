@@ -1,0 +1,26 @@
+<p-table
+  [value]="budgetAssignments"
+  [lazy]="true"
+  (onLazyLoad)="loadBudgetAssignments($event)"
+  [paginator]="true"
+  [rows]="10"
+  [loading]="loading"
+  [totalRecords]="totalRecords"
+>
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Date</th>
+      <th>Recipient</th>
+      <th>Category</th>
+      <th>Amount</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-budgetassignment>
+    <tr>
+      <td>{{ budgetassignment.date }}</td>
+      <td>{{ budgetassignment.recipient }}</td>
+      <td>{{ budgetassignment.budgetCategoryName }}</td>
+      <td>{{ budgetassignment.amount }}</td>
+    </tr>
+  </ng-template>
+</p-table>

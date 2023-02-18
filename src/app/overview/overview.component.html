@@ -10,7 +10,10 @@
     <tr>
       <td>
         <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
-        <a routerLink="/accounts/?x={rowData.category}">
+        <a
+          routerLink="/budget-assignment"
+          [queryParams]="{ budgetCategoryId: rowData.id }"
+        >
           {{ rowData.category }}
         </a>
       </td>
