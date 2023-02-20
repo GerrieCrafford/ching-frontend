@@ -29,6 +29,7 @@ export interface paths {
     get: operations["GetBudgetAssignmentList"];
   };
   "/budget-category": {
+    get: operations["GetBudgetCategoryList"];
     post: operations["CreateBudgetCategory"];
   };
   "/budget-increase": {
@@ -68,6 +69,7 @@ export interface components {
       /** Format: int32 */
       id: number;
       name: string;
+      partitions: (components["schemas"]["Ching.DTOs.AccountPartitionDTO"])[];
     };
     "Ching.DTOs.AccountPartitionDTO": {
       /** Format: int32 */
@@ -95,6 +97,13 @@ export interface components {
      * @enum {integer}
      */
     "Ching.DTOs.BudgetAssignmentType": 0 | 1;
+    "Ching.DTOs.BudgetCategoryDTO": {
+      /** Format: int32 */
+      id: number;
+      name: string;
+      /** Format: int32 */
+      parentId?: number | null;
+    };
     "Ching.DTOs.BudgetMonthDTO": {
       /** Format: int32 */
       year: number;
@@ -401,6 +410,16 @@ export interface operations {
       200: {
         content: {
           "application/json": components["schemas"]["Ching.DTOs.PaginatedDTO`1[Ching.DTOs.BudgetAssignmentDTO]"];
+        };
+      };
+    };
+  };
+  GetBudgetCategoryList: {
+    responses: {
+      /** @description Success */
+      200: {
+        content: {
+          "application/json": (components["schemas"]["Ching.DTOs.BudgetCategoryDTO"])[];
         };
       };
     };

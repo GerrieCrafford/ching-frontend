@@ -5,3 +5,9 @@ export type BudgetOverviewRes =
 
 export type BudgetAssignmentListRes =
   operations['GetBudgetAssignmentList']['responses'][200]['content']['application/json'];
+
+export type AccountListRes =
+  operations['GetAccounts']['responses'][200]['content']['application/json'];
+
+export type BudgetCategoryListRes =
+  operations['GetBudgetCategoryList']['responses'][200]['content']['application/json'];

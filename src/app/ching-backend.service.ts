@@ -1,8 +1,18 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { BudgetAssignmentListRes, BudgetOverviewRes } from 'src/backend';
-import { BudgetAssignmentList, BudgetOverviewItem } from 'src/types';
+import {
+  AccountListRes,
+  BudgetAssignmentListRes,
+  BudgetCategoryListRes,
+  BudgetOverviewRes,
+} from 'src/backend';
+import {
+  Account,
+  BudgetAssignmentList,
+  BudgetCategory,
+  BudgetOverviewItem,
+} from 'src/types';
 
 @Injectable({
   providedIn: 'root',
@@ -31,5 +41,14 @@ export class ChingBackendService {
       params['budgetCategoryId'] = budgetCategoryId;
     }
     return this.http.get<BudgetAssignmentListRes>(url, { params });
+  }
+
+  getAccounts(): Observable<Account[]> {
+    const url = '/api/account';
+    return this.http.get<AccountListRes>(url);
+  }
+
+  getBudgetCategories(): Observable<BudgetCategory[]> {
+    return this.http.get<BudgetCategoryListRes>('/api/budget-category');
   }
 }

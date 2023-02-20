@@ -1,0 +1,116 @@
+<form [formGroup]="createForm" (ngSubmit)="onSubmit()">
+  <div class="flex flex-column gap-2 align-items-center">
+    <h1 class="text-2xl">Budget Assignment from Account Transaction</h1>
+
+    <div class="flex flex-row gap-4 align-items-center mb-4">
+      <span class="p-float-label">
+        <input
+          pInputText
+          type="text"
+          id="transaction-recipient"
+          formControlName="recipient"
+          tabindex="0"
+        />
+        <label for="transaction-recipient">Recipient</label>
+      </span>
+
+      <p class="mx-2 text-xl font-bold">on</p>
+
+      <div class="flex flex-column gap-2">
+        <p-calendar
+          [style]="{ width: '100%' }"
+          formControlName="date"
+          [showIcon]="true"
+          id="transaction-date"
+          [tabindex]="1"
+        ></p-calendar>
+
+        <div class="flex align-items-center gap-2">
+          <p class="text-xs">for</p>
+          <p-selectButton
+            [options]="monthOptions"
+            formControlName="selectedMonth"
+            optionLabel="title"
+          ></p-selectButton>
+        </div>
+      </div>
+
+      <p class="mx-2 text-xl font-bold">in</p>
+
+      <div class="flex align-items-center flex-column">
+        <p class="text-xs">Account</p>
+        <p-listbox
+          [options]="accounts"
+          formControlName="selectedAccount"
+          optionLabel="name"
+          tabindex="2"
+        ></p-listbox>
+      </div>
+    </div>
+
+    <p-panel header="Budget Assignments" formArrayName="budgetAssignments">
+      <ng-template pTemplate="icons">
+        <button
+          pButton
+          class="p-panel-header-icon p-link"
+          (click)="addBudgetAssignment()"
+        >
+          <span class="pi pi-plus"></span>
+        </button>
+      </ng-template>
+
+      <div
+        class="flex gap-3 align-items-center"
+        *ngFor="let assignment of budgetAssignments.controls; let i = index"
+        [formGroupName]="i"
+      >
+        <div class="p-inputgroup" [style]="{ width: '200px' }">
+          <span class="p-inputgroup-addon">R</span>
+          <p-inputNumber
+            type="text"
+            placeholder="100.00"
+            mode="decimal"
+            [minFractionDigits]="0"
+            [maxFractionDigits]="2"
+            locale="en-US"
+            formControlName="amount"
+          >
+          </p-inputNumber>
+        </div>
+
+        <span class="pi pi-arrow-right"></span>
+
+        <p-autoComplete
+          formControlName="category"
+          [suggestions]="filteredBudgetCategories[i]"
+          [dropdown]="true"
+          (completeMethod)="search(i, $event)"
+          field="name"
+          [forceSelection]="true"
+        ></p-autoComplete>
+
+        <button
+          pButton
+          type="button"
+          icon="pi pi-minus"
+          class="p-button-danger p-button-rounded p-button-text"
+          (click)="removeBudgetAssignment(i)"
+        ></button>
+      </div>
+
+      <p-divider></p-divider>
+
+      <p class="text-center">
+        Total: {{ getAssignmentsTotal() | currencyZar }}
+      </p>
+    </p-panel>
+
+    <button
+      class="mt-4"
+      pButton
+      type="submit"
+      label="Create"
+      [disabled]="!createForm.valid"
+    ></button>
+  </div>
+</form>
