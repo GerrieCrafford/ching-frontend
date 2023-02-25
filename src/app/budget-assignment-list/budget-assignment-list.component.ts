@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { LazyLoadEvent } from 'primeng/api';
+import { Table } from 'primeng/table';
 import { BudgetAssignmentItem } from 'src/types';
 import { ChingBackendService } from '../ching-backend.service';
 
@@ -13,26 +14,35 @@ export class BudgetAssignmentListComponent {
   loading: boolean = false;
   totalRecords!: number;
   budgetAssignments: BudgetAssignmentItem[] = [];
+  budgetCategoryId?: number;
+
+  @ViewChild(Table)
+  private table!: Table;
 
   constructor(
     private backend: ChingBackendService,
     private route: ActivatedRoute
   ) {}
 
-  loadBudgetAssignments(event: LazyLoadEvent) {
-    const budgetCategoryIdStr =
-      this.route.snapshot.queryParamMap.get('budgetCategoryId');
-    const budgetCategoryId = budgetCategoryIdStr
-      ? Number(budgetCategoryIdStr)
-      : undefined;
+  ngOnInit(): void {
+    this.route.queryParamMap.subscribe((params) => {
+      const budgetCategoryIdStr = params.get('budgetCategoryId');
+      this.budgetCategoryId = budgetCategoryIdStr
+        ? Number(budgetCategoryIdStr)
+        : undefined;
 
+      this.table.reset();
+    });
+  }
+
+  loadBudgetAssignments(event: LazyLoadEvent) {
     this.loading = true;
-    console.log({ event, budgetCategoryId, budgetCategoryIdStr });
+    console.log({ event, budgetCategoryId: this.budgetCategoryId });
     this.backend
       .getBudgetAssignments(
         event.first || 0,
         event.rows || 10,
-        budgetCategoryId
+        this.budgetCategoryId
       )
       .subscribe((list) => {
         this.budgetAssignments = list.items;
