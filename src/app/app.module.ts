@@ -22,11 +22,13 @@ import { RippleModule } from 'primeng/ripple';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { ToastModule } from 'primeng/toast';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { MenubarModule } from 'primeng/menubar';
 
 import { CurrencyZarPipe } from './currency-zar.pipe';
 
 import { BudgetAssignmentListComponent } from './budget-assignment-list/budget-assignment-list.component';
 import { BudgetAssignmentCreatorComponent } from './budget-assignment-creator/budget-assignment-creator.component';
+import { TopAppBarComponent } from './top-app-bar/top-app-bar.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +37,7 @@ import { BudgetAssignmentCreatorComponent } from './budget-assignment-creator/bu
     CurrencyZarPipe,
     BudgetAssignmentListComponent,
     BudgetAssignmentCreatorComponent,
+    TopAppBarComponent,
   ],
   imports: [
     BrowserModule,
@@ -57,6 +60,7 @@ import { BudgetAssignmentCreatorComponent } from './budget-assignment-creator/bu
     ToastModule,
     InputNumberModule,
     OverlayPanelModule,
+    MenubarModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
