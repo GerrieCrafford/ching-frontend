@@ -1,0 +1,9 @@
+:host {
+  ::ng-deep .p-menuitem-link-active {
+    background: var(--primary-color);
+
+    &:not(p.disabled):hover {
+      background: var(--primary-color) !important;
+    }
+  }
+}

@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 
 @Component({
@@ -8,20 +7,16 @@ import { MenuItem } from 'primeng/api';
   styleUrls: ['./top-app-bar.component.scss'],
 })
 export class TopAppBarComponent {
-  items!: MenuItem[];
+  items: MenuItem[] = [
+    {
+      label: 'Overview',
+      routerLink: ['/overview'],
+    },
+    {
+      label: 'Budget Assignments',
+      routerLink: ['/budget-assignment'],
+    },
+  ];
 
-  constructor(private router: Router) {}
-
-  ngOnInit() {
-    this.items = [
-      {
-        label: 'Overview',
-        command: () => this.router.navigate(['/']),
-      },
-      {
-        label: 'Budget Assignments',
-        command: () => this.router.navigate(['/budget-assignment']),
-      },
-    ];
-  }
+  constructor() {}
 }
