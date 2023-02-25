@@ -23,6 +23,8 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
 import { ToastModule } from 'primeng/toast';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { MenubarModule } from 'primeng/menubar';
+import { SpeedDialModule } from 'primeng/speeddial';
+import { DynamicDialogModule } from 'primeng/dynamicdialog';
 
 import { CurrencyZarPipe } from './currency-zar.pipe';
 
@@ -61,8 +63,11 @@ import { TopAppBarComponent } from './top-app-bar/top-app-bar.component';
     InputNumberModule,
     OverlayPanelModule,
     MenubarModule,
+    SpeedDialModule,
+    DynamicDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
+  entryComponents: [BudgetAssignmentCreatorComponent],
 })
 export class AppModule {}

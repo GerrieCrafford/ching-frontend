@@ -1,17 +1,40 @@
-import { Component } from '@angular/core';
-import { TreeNode } from 'primeng/api';
+import { Component, ViewEncapsulation } from '@angular/core';
+import { MenuItem, TreeNode } from 'primeng/api';
+import { DialogService } from 'primeng/dynamicdialog';
 import { BudgetOverviewItem } from 'src/types';
+import { BudgetAssignmentCreatorComponent } from '../budget-assignment-creator/budget-assignment-creator.component';
 import { ChingBackendService } from '../ching-backend.service';
 
 @Component({
   selector: 'app-overview',
   templateUrl: './overview.component.html',
   styleUrls: ['./overview.component.scss'],
+  encapsulation: ViewEncapsulation.None,
+  providers: [DialogService],
 })
 export class OverviewComponent {
   nodes: TreeNode[] = [];
 
-  constructor(private backend: ChingBackendService) {}
+  speedDialItems: MenuItem[] = [
+    {
+      tooltipOptions: {
+        tooltipLabel: 'From assignments',
+      },
+      icon: 'pi pi-percentage',
+      command: () => this.showCreateFromAssignments(),
+    },
+    {
+      tooltipOptions: {
+        tooltipLabel: 'Transaction',
+      },
+      icon: 'pi pi-wallet',
+    },
+  ];
+
+  constructor(
+    private backend: ChingBackendService,
+    public dialogService: DialogService
+  ) {}
 
   ngOnInit(): void {
     this.getOverview();
@@ -53,6 +76,12 @@ export class OverviewComponent {
 
         parent.children.push(treeItem);
       }
+    });
+  }
+
+  showCreateFromAssignments(): void {
+    this.dialogService.open(BudgetAssignmentCreatorComponent, {
+      width: '80%',
     });
   }
 }

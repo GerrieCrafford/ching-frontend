@@ -1,24 +1,28 @@
-<p-treeTable [value]="nodes">
-  <ng-template pTemplate="header">
-    <tr>
-      <th>Category</th>
-      <th>Spent</th>
-      <th>Available</th>
-    </tr>
-  </ng-template>
-  <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
-    <tr>
-      <td>
-        <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
-        <a
-          routerLink="/budget-assignment"
-          [queryParams]="{ budgetCategoryId: rowData.id }"
-        >
-          {{ rowData.category }}
-        </a>
-      </td>
-      <td>{{ rowData.spent | currencyZar }}</td>
-      <td>{{ rowData.available | currencyZar }}</td>
-    </tr>
-  </ng-template>
-</p-treeTable>
+<div>
+  <p-treeTable [value]="nodes">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Category</th>
+        <th>Spent</th>
+        <th>Available</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
+      <tr>
+        <td>
+          <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+          <a
+            routerLink="/budget-assignment"
+            [queryParams]="{ budgetCategoryId: rowData.id }"
+          >
+            {{ rowData.category }}
+          </a>
+        </td>
+        <td>{{ rowData.spent | currencyZar }}</td>
+        <td>{{ rowData.available | currencyZar }}</td>
+      </tr>
+    </ng-template>
+  </p-treeTable>
+
+  <p-speedDial [model]="speedDialItems"></p-speedDial>
+</div>
