@@ -74,6 +74,7 @@ export interface components {
     "Ching.DTOs.AccountPartitionDTO": {
       /** Format: int32 */
       id: number;
+      name: string;
       archived: boolean;
       budgetMonth: components["schemas"]["Ching.DTOs.BudgetMonthDTO"];
     };

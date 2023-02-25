@@ -21,6 +21,7 @@ import { PanelModule } from 'primeng/panel';
 import { RippleModule } from 'primeng/ripple';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { ToastModule } from 'primeng/toast';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
 
 import { CurrencyZarPipe } from './currency-zar.pipe';
 
@@ -55,6 +56,7 @@ import { BudgetAssignmentCreatorComponent } from './budget-assignment-creator/bu
     AutoCompleteModule,
     ToastModule,
     InputNumberModule,
+    OverlayPanelModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

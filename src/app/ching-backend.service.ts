@@ -6,12 +6,15 @@ import {
   BudgetAssignmentListRes,
   BudgetCategoryListRes,
   BudgetOverviewRes,
+  CreateFromBudgetAssignmentsBody,
+  CreateFromBudgetAssignmentsRes,
 } from 'src/backend';
 import {
   Account,
   BudgetAssignmentList,
   BudgetCategory,
   BudgetOverviewItem,
+  CreateFromBudgetAssignmentsDto,
 } from 'src/types';
 
 @Injectable({
@@ -41,6 +44,19 @@ export class ChingBackendService {
       params['budgetCategoryId'] = budgetCategoryId;
     }
     return this.http.get<BudgetAssignmentListRes>(url, { params });
+  }
+
+  createFromBudgetAssignments(
+    req: CreateFromBudgetAssignmentsDto
+  ): Observable<number> {
+    const body: CreateFromBudgetAssignmentsBody = {
+      ...req,
+      date: req.date.toJSON(),
+    };
+    return this.http.post<CreateFromBudgetAssignmentsRes>(
+      '/api/account-transaction/budget-assignment',
+      body
+    );
   }
 
   getAccounts(): Observable<Account[]> {

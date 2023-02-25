@@ -40,11 +40,31 @@
       <div class="flex align-items-center flex-column">
         <p class="text-xs">Account</p>
         <p-listbox
+          (onChange)="accountSelectionChanged()"
           [options]="accounts"
           formControlName="selectedAccount"
           optionLabel="name"
           tabindex="2"
+          class="mb-2"
         ></p-listbox>
+
+        <p-button
+          icon="pi pi-angle-double-down"
+          [disabled]="!createForm.controls.selectedAccount.value"
+          [label]="
+            createForm.controls.selectedPartition.value?.name || 'Partition'
+          "
+          (onClick)="op.toggle($event)"
+        ></p-button>
+        <p-overlayPanel #op [showCloseIcon]="true">
+          <ng-template pTemplate="header">
+            <p-listbox
+              [options]="partitionOptions"
+              optionLabel="name"
+              formControlName="selectedPartition"
+            ></p-listbox>
+          </ng-template>
+        </p-overlayPanel>
       </div>
     </div>
 

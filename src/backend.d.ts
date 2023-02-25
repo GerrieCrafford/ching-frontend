@@ -11,3 +11,8 @@ export type AccountListRes =
 
 export type BudgetCategoryListRes =
   operations['GetBudgetCategoryList']['responses'][200]['content']['application/json'];
+
+export type CreateFromBudgetAssignmentsBody =
+  operations['CreateAccountTransactionFromAssignments']['requestBody']['content']['application/json'];
+export type CreateFromBudgetAssignmentsRes =
+  operations['CreateAccountTransactionFromAssignments']['responses'][200]['content']['application/json'];
