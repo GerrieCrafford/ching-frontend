@@ -1,27 +1,36 @@
-# ChingFrontend
+<h1 align="center">
+  <img alt="ching logo" src="https://github.com/GerrieCrafford/ching-backend/blob/main/.github/ching-logo.png" width="96px"/><br/> Ching Frontend
+</h1>
+<p align="center">
+Frontend for Ching, my own personal finance management web app.
+</p>
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.1.3.
+## Overview
 
-## Development server
+The Ching frontend, together with the backend, allows me to keep track of my finances by tracking expenses and assigning transactions to budget categories.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+This repo is a WIP, as I am currently doing a complete rewrite of the first version and using it as an opportunity to learn Angular.
 
-## Code scaffolding
+## Demo
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+![](.github/ching-demo.gif)
 
-## Build
+## Usage
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Install dependencies with
 
-## Running unit tests
+```
+$ npm install
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Run the development server with
 
-## Running end-to-end tests
+```
+$ ng serve
+```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Build the project with
 
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+```
+$ ng build
+```
