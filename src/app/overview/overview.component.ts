@@ -80,8 +80,12 @@ export class OverviewComponent {
   }
 
   showCreateFromAssignments(): void {
-    this.dialogService.open(BudgetAssignmentCreatorComponent, {
+    const ref = this.dialogService.open(BudgetAssignmentCreatorComponent, {
       width: '80%',
+    });
+
+    ref.onClose.subscribe(() => {
+      this.getOverview();
     });
   }
 }
